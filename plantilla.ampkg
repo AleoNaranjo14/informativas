@@ -1,0 +1,337 @@
+<?xml version="1.0"?>
+<PackageConstruct1100 xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ID>{ee67f94e-b467-4b88-8c84-9df837a8eca4}</ID>
+  <ParentID />
+  <Name />
+  <Type>Package</Type>
+  <Path />
+  <Tasks>
+    <anyType xsi:type="TaskConstruct">
+      <ID>{d14d0387-e06e-4cf3-b7ec-926652c18346}</ID>
+      <ParentID>{E893A7FD-2758-4315-9181-93F8728332E5}</ParentID>
+      <Name>Initialization</Name>
+      <Type>Task</Type>
+      <Path />
+      <StartedOn>1900-01-01T00:00:00Z</StartedOn>
+      <EndedOn>1900-01-01T00:00:00Z</EndedOn>
+      <ResultCode>0</ResultCode>
+      <ResultText />
+      <VersionDate>2023-11-27T19:05:07.237Z</VersionDate>
+      <Version>80</Version>
+      <ModifiedOn>2023-11-27T19:05:07.223Z</ModifiedOn>
+      <CreatedOn>2023-11-23T14:28:14.82Z</CreatedOn>
+      <Notes />
+      <CreatedBy>{6AD627E8-373B-4104-81B7-9670A9D2F430}</CreatedBy>
+      <CompletionState>Production</CompletionState>
+      <ExclusionSchedules />
+      <Empty>false</Empty>
+      <Enabled>true</Enabled>
+      <Removed>false</Removed>
+      <LockedBy />
+      <AML>&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;AutoMateTask&gt;
+  &lt;TaskInfo&gt;
+    &lt;Version TaskVersion="23.1.0.226" MinVersion="0.0.0.0" AMLVersion="3.0" /&gt;
+  &lt;/TaskInfo&gt;
+  &lt;TaskFunctions&gt;
+    &lt;TaskFunction Name="OnStepStart" Access="private"&gt;
+      &lt;Parameters&gt;
+        &lt;Parameter Name="FunctionName" Description="The function that is starting the step" /&gt;
+        &lt;Parameter Name="StepNumber" Description="The step number that is about to execute" /&gt;
+      &lt;/Parameters&gt;
+    &lt;/TaskFunction&gt;
+    &lt;TaskFunction Name="OnStepEnd" Access="private"&gt;
+      &lt;Parameters&gt;
+        &lt;Parameter Name="FunctionName" Description="The function that is ending the step" /&gt;
+        &lt;Parameter Name="StepNumber" Description="The step number that is about to end" /&gt;
+      &lt;/Parameters&gt;
+    &lt;/TaskFunction&gt;
+    &lt;TaskFunction Name="OnStepError" Access="private"&gt;
+      &lt;Parameters&gt;
+        &lt;Parameter Name="FunctionName" Description="The function with the error" /&gt;
+        &lt;Parameter Name="StepNumber" Description="The step number of the error" /&gt;
+        &lt;Parameter Name="ErrorText" Description="The text of the error" /&gt;
+        &lt;Parameter Name="ErrorCode" Description="The code of the error" /&gt;
+      &lt;/Parameters&gt;
+    &lt;/TaskFunction&gt;
+    &lt;TaskFunction Name="OnTaskFailure" Access="private"&gt;
+      &lt;Parameters&gt;
+        &lt;Parameter Name="FunctionName" Description="The function causing the task failure" /&gt;
+        &lt;Parameter Name="StepNumber" Description="The step number causing the task failure" /&gt;
+        &lt;Parameter Name="ErrorText" Description="The text of the error" /&gt;
+        &lt;Parameter Name="ErrorCode" Description="The code of the error" /&gt;
+      &lt;/Parameters&gt;
+    &lt;/TaskFunction&gt;
+    &lt;TaskFunction Name="OnTaskStart" Access="private"&gt;
+      &lt;Parameters&gt;
+        &lt;Parameter Name="Reason" Description="The reason the task is starting" /&gt;
+      &lt;/Parameters&gt;
+    &lt;/TaskFunction&gt;
+    &lt;TaskFunction Name="OnTaskEnd" Access="private"&gt;
+      &lt;Parameters&gt;
+        &lt;Parameter Name="Reason" Description="The reason the task is ending" /&gt;
+      &lt;/Parameters&gt;
+    &lt;/TaskFunction&gt;
+    &lt;TaskFunction Name="Main" Access="private"&gt;
+      &lt;Steps&gt;
+&lt;AMREGION NAME="Variables" COLLAPSED="YES" /&gt;
+&lt;AMVARIABLE NAME="intValidator" /&gt;
+&lt;AMVARIABLE NAME="strP63" TYPE="text" VALUE="" /&gt;
+&lt;AMVARIABLE NAME="strReferencia" TYPE="text" VALUE="" /&gt;
+&lt;AMVARIABLE NAME="strVersion" TYPE="text" /&gt;
+&lt;AMVARIABLE NAME="strUsoFuturo1" TYPE="text" /&gt;
+&lt;AMVARIABLE NAME="strSerial" TYPE="text" VALUE="" /&gt;
+&lt;AMVARIABLE NAME="strUsoFuturo2" TYPE="text" /&gt;
+&lt;AMENDREGION /&gt;
+&lt;AMREGION NAME="Lectura de insumo" /&gt;
+&lt;AMEXCEL SESSION="Abrir excel" WORKBOOK="C:\Users\manuel.alvarez\Desktop\data1.xlsx" VISIBLE="NO" /&gt;
+&lt;AMEXCEL ACTIVITY="get_cell" SESSION="Abrir excel" ACTION="rangebyposition" RESULTDATASET="ExcelResult" STARTCELLROW="1" STARTCELLCOLUMN="1" LASTCELL="YES" FIRSTROWCOLUMN="YES" /&gt;
+&lt;AMEXCEL ACTIVITY="close_workbook" SESSION="Abrir excel" SAVETYPE="do_not_save" /&gt;
+&lt;AMENDREGION /&gt;
+&lt;AMLOOP ACTIVITY="dataset" DATASET="ExcelResult" /&gt;
+&lt;AMVARIABLE ACTIVITY="set" VARIABLENAME="strP63"&gt;&lt;![CDATA[%ExcelResult.Data%]]&gt;&lt;/AMVARIABLE&gt;
+&lt;AMTASK ACTIVITY="call_function" FUNCTIONNAME="ValidarData(strP63)" RESULTVARIABLE="intValidator" /&gt;
+&lt;AMSELECTCASE EXPRESSION="%intValidator%" /&gt;
+&lt;AMCASE CONSTANT="1" /&gt;
+&lt;AMTEXT ACTIVITY="get_substring" TEXT="%strP63%" RESULTVARIABLE="strReferencia" STARTPOSITION="1" LENGTH="15" /&gt;
+&lt;AMTEXT ACTIVITY="replace" TEXT="%strP63%" FIND="%strReferencia%" REPLACE="" RESULTVARIABLE="strP63" /&gt;
+&lt;AMTEXT ACTIVITY="get_substring" TEXT="%strP63%" RESULTVARIABLE="strUsoFuturo1" STARTPOSITION="1" LENGTH="2" /&gt;
+&lt;AMTEXT ACTIVITY="get_substring" TEXT="%strP63%" RESULTVARIABLE="strVersion" STARTPOSITION="1" LENGTH="12" /&gt;
+&lt;AMTEXT ACTIVITY="replace" TEXT="%strP63%" FIND="%strVersion%" REPLACE="" RESULTVARIABLE="strP63" /&gt;
+&lt;AMTEXT ACTIVITY="get_substring" TEXT="%strP63%" RESULTVARIABLE="strSerial" STARTPOSITION="1" LENGTH="11" /&gt;
+&lt;AMTEXT ACTIVITY="replace" TEXT="%strP63%" FIND="%strSerial%" REPLACE="" RESULTVARIABLE="strP63" /&gt;
+&lt;AMVARIABLE ACTIVITY="set" VARIABLENAME="strUsoFuturo2"&gt;&lt;![CDATA[%strP63%]]&gt;&lt;/AMVARIABLE&gt;
+&lt;AMCASE ACTIVITY="endcase" /&gt;
+&lt;AMCASE /&gt;
+&lt;AMCASE ACTIVITY="endcase" /&gt;
+&lt;AMSELECTCASE ACTIVITY="end" /&gt;
+&lt;AMLOOP ACTIVITY="end" /&gt;
+	&lt;/Steps&gt;
+    &lt;/TaskFunction&gt;
+    &lt;TaskFunction Name="ValidarData" ReturnType="variable"&gt;
+      &lt;Parameters&gt;
+        &lt;Parameter Name="strP63" /&gt;
+      &lt;/Parameters&gt;
+      &lt;Steps&gt;
+&lt;AMREGION NAME="Compras, anulaciones, reversos, avances, consulta de saldo, gestión de reverso" /&gt;
+&lt;AMIF EXPRESSION="%CInt(Len(strP63))% = 48" /&gt;
+&lt;AMVARIABLE ACTIVITY="return" TYPE="value" VALUE="1" /&gt;
+&lt;AMIF ACTIVITY="end" /&gt;
+&lt;AMENDREGION /&gt;
+	&lt;/Steps&gt;
+    &lt;/TaskFunction&gt;
+  &lt;/TaskFunctions&gt;
+&lt;/AutoMateTask&gt;</AML>
+    </anyType>
+  </Tasks>
+  <TaskProperties>
+    <anyType xsi:type="TaskPropertiesConstruct">
+      <ID>41422d78-ef8d-4600-84f3-859177fe321f</ID>
+      <ParentID>{d14d0387-e06e-4cf3-b7ec-926652c18346}</ParentID>
+      <Name />
+      <Type>TaskProperties</Type>
+      <Path />
+      <StartedOn>1900-01-01T00:00:00Z</StartedOn>
+      <EndedOn>1900-01-01T00:00:00Z</EndedOn>
+      <ResultCode>0</ResultCode>
+      <ResultText />
+      <VersionDate>2023-11-23T14:28:14.903Z</VersionDate>
+      <Version>0</Version>
+      <ModifiedOn>2023-11-23T14:28:14.903Z</ModifiedOn>
+      <CreatedOn>2023-11-23T14:28:14.903Z</CreatedOn>
+      <Notes />
+      <CreatedBy>{6AD627E8-373B-4104-81B7-9670A9D2F430}</CreatedBy>
+      <CompletionState>InDevelopment</CompletionState>
+      <ExclusionSchedules />
+      <Empty>false</Empty>
+      <Enabled>true</Enabled>
+      <Removed>false</Removed>
+      <LockedBy />
+      <OnLogoff>DoNotRun</OnLogoff>
+      <OnLogged>LoggedonUser</OnLogged>
+      <OnLocked>LoggedonUser</OnLocked>
+      <UseLogonDefault>true</UseLogonDefault>
+      <LogonUsername>!#!ENCRYPTED!#!Ksu3hskN0tL8KRexVy1NfQ==</LogonUsername>
+      <LogonPassword>!#!ENCRYPTED!#!nh9G0gBw7J5SDzMZbbjwFA==</LogonPassword>
+      <LogonDomain />
+      <LogonPropertiesSpecified>true</LogonPropertiesSpecified>
+      <LogonPropertiesInheritancePath />
+      <ConcurrencyType>AlwaysRun</ConcurrencyType>
+      <PriorityAction>Queue</PriorityAction>
+      <PriorityWaitTimeOut>0</PriorityWaitTimeOut>
+      <TaskFailureAction>Fail</TaskFailureAction>
+      <MaxTaskInstances>-1</MaxTaskInstances>
+      <PriorityPropertiesSpecified>false</PriorityPropertiesSpecified>
+      <PriorityPropertiesInheritancePath />
+      <ErrorNotifyEmailToAddress />
+      <ErrorNotifyEmailFromAddress />
+      <ErrorRunTaskName />
+      <ErrorNotificationPropertiesSpecified>false</ErrorNotificationPropertiesSpecified>
+      <ErrorNotificationPropertiesInheritancePath />
+      <Constants />
+      <RunAsElevated>false</RunAsElevated>
+      <CanStopTask>false</CanStopTask>
+      <TaskExecutionSpeed>0</TaskExecutionSpeed>
+      <ExecutionPropertiesSpecified>false</ExecutionPropertiesSpecified>
+      <ExecutionPropertiesInheritancePath />
+      <IsolationOverride>Default</IsolationOverride>
+      <IsolationPropertiesSpecified>false</IsolationPropertiesSpecified>
+      <IsolationPropertiesInheritancePath />
+      <TaskTimeout>-1</TaskTimeout>
+    </anyType>
+  </TaskProperties>
+  <Triggers>
+    <anyType xsi:type="KeyTriggerConstruct">
+      <ID>{3f17428d-a956-4e44-b55a-40c2279cff88}</ID>
+      <ParentID>{5B00CA35-3EFB-41ea-95C0-D8B50B9BFA9F}</ParentID>
+      <Name>Keyboard Condition</Name>
+      <Type>Trigger</Type>
+      <Path />
+      <StartedOn>1900-01-01T00:00:00Z</StartedOn>
+      <EndedOn>1900-01-01T00:00:00Z</EndedOn>
+      <ResultCode>0</ResultCode>
+      <ResultText />
+      <VersionDate>2023-11-23T14:28:14.977Z</VersionDate>
+      <Version>0</Version>
+      <ModifiedOn>2023-11-23T14:28:14.977Z</ModifiedOn>
+      <CreatedOn>2023-11-23T14:28:14.977Z</CreatedOn>
+      <Notes />
+      <CreatedBy>{6AD627E8-373B-4104-81B7-9670A9D2F430}</CreatedBy>
+      <CompletionState>Production</CompletionState>
+      <ExclusionSchedules />
+      <Empty>false</Empty>
+      <Enabled>true</Enabled>
+      <Removed>false</Removed>
+      <LockedBy />
+      <AssociatedTaskID />
+      <InstanceID />
+      <TriggerType>Key</TriggerType>
+      <TriggerAfter>1</TriggerAfter>
+      <Wait>true</Wait>
+      <IgnoreExistingCondition>false</IgnoreExistingCondition>
+      <Timeout>0</Timeout>
+      <TimeoutUnit>Seconds</TimeoutUnit>
+      <Description />
+      <KeyType>Hotkey</KeyType>
+      <Keys>Alt + A</Keys>
+      <EraseText>true</EraseText>
+      <PassThrough>false</PassThrough>
+      <Process />
+      <Foreground>false</Foreground>
+    </anyType>
+  </Triggers>
+  <TriggerProperties />
+  <WorkFlows>
+    <anyType xsi:type="WorkFlowConstruct">
+      <ID>{ac4291af-2774-4310-93da-3ae8f98998e3}</ID>
+      <ParentID>{589D12C2-1282-4466-B7E3-FE547509AF31}</ParentID>
+      <Name>plantilla</Name>
+      <Type>WorkFlow</Type>
+      <Path />
+      <StartedOn>1900-01-01T00:00:00Z</StartedOn>
+      <EndedOn>1900-01-01T00:00:00Z</EndedOn>
+      <ResultCode>0</ResultCode>
+      <ResultText />
+      <VersionDate>2023-11-28T20:41:57.45Z</VersionDate>
+      <Version>13</Version>
+      <ModifiedOn>2023-11-28T20:41:57.427Z</ModifiedOn>
+      <CreatedOn>2023-11-23T14:28:15.043Z</CreatedOn>
+      <Notes />
+      <CreatedBy>{6AD627E8-373B-4104-81B7-9670A9D2F430}</CreatedBy>
+      <CompletionState>Production</CompletionState>
+      <ExclusionSchedules />
+      <Empty>false</Empty>
+      <Enabled>true</Enabled>
+      <Removed>false</Removed>
+      <LockedBy />
+      <Triggers>
+        <anyType xsi:type="WorkFlowTriggerConstruct">
+          <ID>{e0105c7c-3f80-47db-b40d-e145b2c44f22}</ID>
+          <ParentID />
+          <Name />
+          <Type>WorkflowItem</Type>
+          <Path />
+          <WorkflowID>{ac4291af-2774-4310-93da-3ae8f98998e3}</WorkflowID>
+          <ConstructID>{3f17428d-a956-4e44-b55a-40c2279cff88}</ConstructID>
+          <AgentID>{CC3AD52F-C1DC-4d24-B6BE-32467159C86C}</AgentID>
+          <ConstructType>Trigger</ConstructType>
+          <Enabled>true</Enabled>
+          <UseLabel>false</UseLabel>
+          <Label />
+          <X>-28</X>
+          <Y>18</Y>
+          <Width>12</Width>
+          <Height>12</Height>
+          <TriggerType>Key</TriggerType>
+        </anyType>
+      </Triggers>
+      <Items>
+        <anyType xsi:type="WorkFlowItemConstruct">
+          <ID>{148b2dbe-7690-4e94-820c-92f9b54f628d}</ID>
+          <ParentID />
+          <Name />
+          <Type>WorkflowItem</Type>
+          <Path />
+          <WorkflowID>{ac4291af-2774-4310-93da-3ae8f98998e3}</WorkflowID>
+          <ConstructID>{d14d0387-e06e-4cf3-b7ec-926652c18346}</ConstructID>
+          <AgentID>{CC3AD52F-C1DC-4d24-B6BE-32467159C86C}</AgentID>
+          <ConstructType>Task</ConstructType>
+          <Enabled>true</Enabled>
+          <UseLabel>false</UseLabel>
+          <Label />
+          <X>48</X>
+          <Y>23</Y>
+          <Width>12</Width>
+          <Height>12</Height>
+        </anyType>
+      </Items>
+      <Links>
+        <anyType xsi:type="WorkFlowLinkConstruct">
+          <ID>{be3c909b-67b7-4061-9e6f-a205a16e0d2f}</ID>
+          <ParentID />
+          <Name />
+          <Type>WorkflowLink</Type>
+          <Path />
+          <WorkflowID>{ac4291af-2774-4310-93da-3ae8f98998e3}</WorkflowID>
+          <SourceID>{e0105c7c-3f80-47db-b40d-e145b2c44f22}</SourceID>
+          <DestinationID>{148b2dbe-7690-4e94-820c-92f9b54f628d}</DestinationID>
+          <SourcePoint>
+            <X>-16</X>
+            <Y>24</Y>
+          </SourcePoint>
+          <DestinationPoint>
+            <X>48</X>
+            <Y>29</Y>
+          </DestinationPoint>
+          <LinkType>Success</LinkType>
+          <ResultType>Default</ResultType>
+          <Value />
+        </anyType>
+      </Links>
+      <Variables>
+        <anyType xsi:type="VariableConstruct">
+          <ID>{cb08dfde-8357-4434-ad41-fd8224fa385e}</ID>
+          <ParentID>{ac4291af-2774-4310-93da-3ae8f98998e3}</ParentID>
+          <Name>SiHay</Name>
+          <Type>Variable</Type>
+          <Path />
+          <InitalValue />
+          <CurrentValue />
+          <Description />
+          <VariableType>Auto</VariableType>
+          <DataType>Variable</DataType>
+          <Private>true</Private>
+          <Parameter>true</Parameter>
+        </anyType>
+      </Variables>
+      <ZoomFactor>100</ZoomFactor>
+      <LinkType>Bent</LinkType>
+    </anyType>
+  </WorkFlows>
+  <WorkFlowProperties />
+  <Folders />
+  <ItemPermissions />
+  <Processes />
+  <WorkflowItemProperties />
+  <Exclusions />
+</PackageConstruct1100>
